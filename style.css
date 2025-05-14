@@ -1,0 +1,90 @@
+body {
+    background-color: #E6F2FF;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    color: #2E5984;
+    margin-top: 40px;
+    padding: 20px 40px;
+    font-size: 2.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    position: relative;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+h1::after {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    left: 25%;
+    width: 50%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #4D8FAC, transparent);
+    border-radius: 50%;
+}
+
+#SofIA {
+    margin-top: 50px;
+    width: 20%;
+    border-radius: 100%;
+}
+
+.content-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 20%;
+    margin-top: 20px;
+}
+
+#voice {
+    background-color: rgb(66, 133, 249);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#voice:hover {
+    transform: scale(1.05);
+}
+
+#mic {
+    width: 50%;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #a19b26;
+    font-style: italic;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.highlight {
+    color: #3A7CA5;
+    font-weight: 700;
+}
+
+textarea {
+    width: 80%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #4D8FAC;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    margin-top: 20px;
+    resize: none;
+    align-self: flex-start; /* Alinha com o botão */
+}
