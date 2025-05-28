@@ -1,14 +1,46 @@
 const texto = document.getElementById("texto")
 
+var selectVoice = null
+
+function carregarVoz() {
+    const vozes = window.speechSynthesis.getVoices();
+
+    // Tente encontrar vozes femininas específicas em português do Brasil
+    selectVoice = vozes.find((voz) =>
+        voz.lang === "pt-BR" &&
+        (
+            voz.name.toLowerCase().includes("maria") ||
+            voz.name.toLowerCase().includes("female") ||
+            voz.name.toLowerCase().includes("mulher")
+        )
+    );
+
+    // Fallback: qualquer voz pt-BR
+    if (!selectVoice) {
+        selectVoice = vozes.find((voz) => voz.lang === "pt-BR");
+    }
+
+    if (selectVoice) {
+        console.log("Voz selecionada:", selectVoice.name);
+    } else {
+        console.log("Nenhuma voz pt-BR encontrada.");
+    }
+}
+
+window.speechSynthesis.onvoiceschanged = carregarVoz
 function speak(mensagem) {
     const fala = new SpeechSynthesisUtterance(mensagem)
     fala.lang = "pt-BR"
+    if (selectVoice) {
+        fala.voice = selectVoice
+    }
     window.speechSynthesis.speak(fala)
 }
 
 function executarComando(comando) {
     if (comando.includes("olá sofia") || comando.includes("oi") || comando.includes("olá")) {
         speak("olá meu nome é sofia, sua assistente virtual, como posso ajudar?")
+
     } else if (comando.includes("horário") || comando.includes("que horas são")) {
         const datanow = new Date();
         const hora = datanow.toLocaleTimeString("pt-BR");
@@ -23,29 +55,33 @@ function executarComando(comando) {
         speak("abrindo o instagram")
         window.open("https://www.instagram.com", "_blank")
 
-        
-    } else if (comando.includes("gmail") || comando.includes("e-mail") || comando.includes("abra o e-mail")|| comando.includes("abra o gmail")) {
+
+    } else if (comando.includes("gmail") || comando.includes("e-mail") || comando.includes("abra o e-mail") || comando.includes("abra o gmail")) {
         speak("abrindo o e-mail")
         window.open("https://mail.google.com/mail/u/0/#inbox", "_blank")
 
-    } else if (comando.includes("spotify") || comando.includes("abra o spotify")){
+    } else if (comando.includes("spotify") || comando.includes("abra o spotify")) {
         speak("abrindo o spotify")
         window.open("spotify:", "_self")
 
-    } else if (comando.includes("whatsapp") || comando.includes("zap") || comando.includes("zap zap")){
+    } else if (comando.includes("whatsapp") || comando.includes("zap") || comando.includes("zap zap")) {
         speak("abrindo o Whatsapp")
         window.open("https://web.whatsapp.com", "_blank")
 
-    } else if (comando.includes("netflix") || comando.includes("cinema") || comando.includes("pipoca")){
+    } else if (comando.includes("netflix") || comando.includes("cinema") || comando.includes("pipoca")) {
         speak("abrindo a Netflix")
         window.open("https://www.netflix.com/browse", "_blank")
-    
-    //else if (comando.includes("quais suas funções")||comando.includes("comandos")){
 
-    }else if (comando.includes("steam") || comando.includes("jogos") || comando.includes("games")){
+    } else if (comando.includes("steam") || comando.includes("jogos") || comando.includes("games")) {
         speak("abrindo a Steam")
         window.open("steam:", "_self")
 
+    } else if (comando.includes("quais suas funções") || comando.includes("comandos")) {
+        document.getElementById("description").innerHTML = "meus principais comandos são:'youtube', 'netflix', 'steam','whatsapp','spotify', 'gmail', 'instagram', 'horário', 'bandeiras'"
+        console.log("oi")
+    } else if (comando.includes("bandeiras") || comando.includes("IA") || comando.includes("geografia")) {
+        speak("abrindo a GeografIA")
+        window.open("https://lucasdevt.github.io/Bandeiras/", "_blank")
     }
 
 }
