@@ -34,6 +34,12 @@ function speak(mensagem) {
     if (selectVoice) {
         fala.voice = selectVoice
     }
+    const imagem = document.getElementById("SofIA");
+    imagem.classList.add("speaking");
+
+    fala.onend = () => {
+        imagem.classList.remove("speaking");
+    };
     window.speechSynthesis.speak(fala)
 }
 
@@ -77,14 +83,30 @@ function executarComando(comando) {
         window.open("steam:", "_self")
 
     } else if (comando.includes("quais suas funções") || comando.includes("comandos")) {
-        document.getElementById("description").innerHTML = "meus principais comandos são:'youtube', 'netflix', 'steam','whatsapp','spotify', 'gmail', 'instagram', 'horário', 'bandeiras'"
-        console.log("oi")
+        speak("Aqui estão meus principais comandos:")
+        const commandsHTML = `
+        <div class="commands-box">
+            <div class="commands-title">Comandos Disponíveis</div>
+            <ul class="commands-list">
+                <li class="command-item">"Youtube"</li>
+                <li class="command-item">"Netflix"</li>
+                <li class="command-item">"Steam"</li>
+                <li class="command-item">"Whatsapp"</li>
+                <li class="command-item">"Spotify"</li>
+                <li class="command-item">"Gmail" ou "E-mail"</li>
+                <li class="command-item">"Instagram"</li>
+                <li class="command-item">"Horário" ou "Que horas são"</li>
+                <li class="command-item">"Bandeiras" ou "Geografia"</li>
+            </ul>
+        </div>
+    `;
+        document.getElementById("description").innerHTML = commandsHTML;
     } else if (comando.includes("bandeiras") || comando.includes("IA") || comando.includes("geografia")) {
         speak("abrindo a GeografIA")
         window.open("https://lucasdevt.github.io/Bandeiras/", "_blank")
     }
-
 }
+
 function reconhecimento() {
     const voz = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     voz.lang = "pt-BR";
