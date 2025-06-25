@@ -146,3 +146,73 @@ textarea {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+.carrossel-container {
+    position: relative;
+    width: 90%;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.carrossel {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+}
+
+.carrossel::-webkit-scrollbar {
+    display: none; 
+}
+
+.carrossel .jogo {
+    min-width: 200px;
+    max-width: 200px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.carrossel .jogo:hover {
+    transform: scale(1.05);
+}
+
+.seta {
+    background-color: #3A7CA5;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.seta:hover {
+    background-color: #2E5984;
+    transform: scale(1.1);
+}
+
+.seta:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .carrossel-container {
+        flex-direction: column;
+    }
+    .seta {
+        margin: 10px 0;
+    }
+}
