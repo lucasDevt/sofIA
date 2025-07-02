@@ -5,7 +5,7 @@ var selectVoice = null
 function carregarVoz() {
     const vozes = window.speechSynthesis.getVoices();
 
-    // Tente encontrar vozes femininas específicas em português do Brasil
+
     selectVoice = vozes.find((voz) =>
         voz.lang === "pt-BR" &&
         (
@@ -15,7 +15,7 @@ function carregarVoz() {
         )
     );
 
-    // Fallback: qualquer voz pt-BR
+
     if (!selectVoice) {
         selectVoice = vozes.find((voz) => voz.lang === "pt-BR");
     }
@@ -40,6 +40,7 @@ function speak(mensagem) {
     fala.onend = () => {
         imagem.classList.remove("speaking");
     };
+    adicionarBalao(mensagem, "ia");
     window.speechSynthesis.speak(fala)
 }
 
@@ -128,12 +129,12 @@ function executarComando(comando) {
             .replace("busque sobre", "")
             .replace("pesquise sobre", "")
             .trim()
-        if(termo.length>0){
-            speak("pesquisando por:"+termo)
+        if (termo.length > 0) {
+            speak("pesquisando por:" + termo)
             buscarWikipedia(termo)
-        }else {
+        } else {
             speak("por favor me diga o que gostaria que eu pesquisasse")
-        }    
+        }
     }
 
 }
@@ -153,21 +154,21 @@ async function buscarWikipedia(pergunta) {
         return;
     }
 
-    
+
     const buscaUrl = `https://pt.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(termoPesquisa)}&limit=1&namespace=0&format=json&origin=*`;
 
     try {
         const buscaResposta = await fetch(buscaUrl);
         const buscaData = await buscaResposta.json();
 
-        const tituloEncontrado = buscaData[1][0]; 
+        const tituloEncontrado = buscaData[1][0];
 
         if (!tituloEncontrado) {
             speak("Não encontrei resultados para " + termoPesquisa);
             return;
         }
 
-        
+
         const resumoUrl = `https://pt.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(tituloEncontrado)}`;
         const resumoResposta = await fetch(resumoUrl);
         const resumoData = await resumoResposta.json();
@@ -211,7 +212,7 @@ function reconhecimento() {
     voz.lang = "pt-BR";
     voz.continuous = true;
     voz.interimResults = true;
-    texto.textContent = "estou escutando atenciosamente";
+    // texto.textContent = "estou escutando atenciosamente";
     let finalTranscription = "";
     voz.onresult = (event) => {
         let tempTranscription = ""
@@ -220,13 +221,14 @@ function reconhecimento() {
             if (resultados.isFinal) {
                 const comando = resultados[0].transcript.toLowerCase();
                 finalTranscription += comando + " ";
+                adicionarBalao(comando, "usuario");
                 executarComando(comando)
             } else {
                 tempTranscription += resultados[0].transcript
 
             }
         }
-        texto.textContent = finalTranscription + tempTranscription
+        // texto.textContent = finalTranscription + tempTranscription
     }
     voz.onerror = (event) => {
         texto.textContent = "erro: " + event.error
@@ -236,6 +238,15 @@ function reconhecimento() {
 
 function scrollCarrossel(direcao) {
     const carrossel = document.getElementById("carrosselJogos");
-    const larguraCard = 220; // largura do card + gap
+    const larguraCard = 220;
     carrossel.scrollLeft += direcao * larguraCard;
+}
+
+function adicionarBalao(mensagem, tipo) {
+    const chat = document.getElementById("chat");
+    const balao = document.createElement("div");
+    balao.className = "balao " + tipo;
+    balao.textContent = mensagem;
+    chat.appendChild(balao);
+    chat.scrollTop = chat.scrollHeight;
 }

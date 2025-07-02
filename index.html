@@ -13,21 +13,26 @@
         <span class="highlight">SofIA</span>, sua assistente virtual
     </h1>
     <div class="subtitle">Clique no botão com ícone de Microfone abaixo e pressione "permitir" assim que o pop-up for
-        exibido. Após isso, dê um comando de voz!</div>
+        exibido. Após isso, dê um comando de voz!
+    </div>
     <img src="statics/SofIA.jpg" id="SofIA" />
+    <div class="content-container">
+        <button id="voice" onclick="reconhecimento()">
+            <img src="statics/Microfone.png" id="mic" />
+        </button>
+       
+    </div>
     <div id="description" class="comandos"></div>
     <div class="carrossel-container">
         <button class="seta esquerda" onclick="scrollCarrossel(-1)">←</button>
         <div class="carrossel" id="carrosselJogos"></div>
         <button class="seta direita" onclick="scrollCarrossel(1)">→</button>
     </div>
-    <div class="content-container">
-        <button id="voice" onclick="reconhecimento()">
-            <img src="statics/Microfone.png" id="mic" />
-        </button>
-        <textarea placeholder="A resposta de SofIA aparecerá nesta área após sua pergunta de voz" rows="20" cols="200"
+    <!-- <div class="content-container-area">
+         <textarea placeholder="A resposta de SofIA aparecerá nesta área após sua pergunta de voz" rows="20" cols="200"
             id="texto"></textarea>
-    </div>
+    </div> -->
+    <div class="chat-container" id="chat"></div>
     <script src="main.js"></script>
 </body>
 

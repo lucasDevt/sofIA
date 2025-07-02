@@ -55,8 +55,7 @@ h1::after {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding-left: 20%;
+    align-items: center;
     margin-top: 20px;
 }
 
@@ -76,6 +75,7 @@ h1::after {
 
 #mic {
     width: 50%;
+    
 }
 
 .subtitle {
@@ -215,4 +215,50 @@ textarea {
     .seta {
         margin: 10px 0;
     }
+}
+
+.content-container-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20%;
+    margin-top: 20px;
+}
+
+.chat-container {
+    width: 80%;
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 15px;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    background-color: #fff;
+}
+
+.balao {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 20px;
+    font-size: 1rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ia {
+    align-self: flex-start;
+    background-color: #e0f2ff;
+    color: #004e78;
+    border-top-left-radius: 0;
+}
+
+.usuario {
+    align-self: flex-end;
+    background-color: #d1ffc7;
+    color: #225c1a;
+    border-top-right-radius: 0;
 }
